@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './App.css'
+import Navbar from './components/Navbar'
+import ItemListContainer from './components/ItemListContainer'
 
 const empanadas = [
   'Vacío y provoleta',
@@ -72,17 +74,9 @@ function App() {
 
   return (
     <>
-      <header>
-        <h1>MANJAR EMPANADAS</h1>
+      <Navbar />
 
-        <nav>
-          <a href="#inicio">Inicio</a>
-          <a href="#productos">Empanadas</a>
-          <a href="#salsas">Salsas</a>
-          <a href="#carrito">Mi pedido</a>
-          <a href="#contacto">Contacto</a>
-        </nav>
-      </header>
+<ItemListContainer greeting="¡Bienvenidos a Manjar Empanadas!" />
 
       <main>
         <section id="inicio" className="hero">
