@@ -18,7 +18,7 @@ El objetivo es crear una tienda online donde los clientes puedan conocer nuestro
 
 Clonar el repositorio:
 
-    git clone URL_DEL_REPOSITORIO
+    git clone https://github.com/lmatiaslautaro-jpg/empanadasmanjarnueva.git
 
 Ingresar a la carpeta:
 
