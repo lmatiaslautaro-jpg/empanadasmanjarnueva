@@ -11,12 +11,23 @@ El objetivo es crear una tienda online donde los clientes puedan conocer nuestro
 - HTML5
 - CSS3
 - JavaScript
-- React
+- React 19
 - Vite
 
 ## Instalación
 
 Clonar el repositorio:
 
-```bash
-git clone URL_DEL_REPOSITORIO
+    git clone URL_DEL_REPOSITORIO
+
+Ingresar a la carpeta:
+
+    cd manjar-empanadas
+
+Instalar las dependencias:
+
+    npm install
+
+Iniciar el proyecto:
+
+    npm run dev
