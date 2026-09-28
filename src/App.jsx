@@ -3,32 +3,6 @@ import './App.css'
 import Navbar from './components/Navbar'
 import ItemListContainer from './components/ItemListContainer'
 
-const empanadas = [
-  'Vacío y provoleta',
-  'Cheeseburger',
-  'Carne al cuchillo',
-  'Carne picante',
-  'Carne suave',
-  'Carne con aceituna',
-  'Pollo',
-  'Pollo al champiñón',
-  'Jamón y queso',
-  'Calabresa',
-  'Jamón, huevo y queso',
-  'Jamón, tomate y albahaca',
-  'Caprese',
-  'Panceta y ciruela',
-  'Calabaza integral',
-  'Verdura',
-  'Salchicha y cheddar',
-  'Panceta y morrón',
-  'Roquefort con jamón',
-  'Provolone con jamón',
-  'Queso y cebolla',
-  'Choclo',
-  'Cuatro quesos',
-]
-
 const salsas = [
   'Chimi',
   'Cheddar',
@@ -76,8 +50,6 @@ function App() {
     <>
       <Navbar />
 
-<ItemListContainer greeting="¡Bienvenidos a Manjar Empanadas!" />
-
       <main>
         <section id="inicio" className="hero">
           <h2>El sabor de lo casero</h2>
@@ -89,29 +61,10 @@ function App() {
           </a>
         </section>
 
-        <section id="productos" className="productos">
-          <h2>Nuestras empanadas</h2>
-
-          <p>¡Descubrí todos nuestros sabores!</p>
-
-          <div className="productos-grid">
-            {empanadas.map((nombre) => (
-              <article className="producto-card" key={nombre}>
-                <div className="producto-imagen">🥟</div>
-
-                <h3>{nombre}</h3>
-
-                <p>Empanada artesanal</p>
-
-                <strong className="precio">$3.000</strong>
-
-                <button onClick={() => agregarAlCarrito(nombre)}>
-                  Agregar al pedido
-                </button>
-              </article>
-            ))}
-          </div>
-        </section>
+        <ItemListContainer
+          greeting="¡Bienvenidos a Manjar Empanadas!"
+          onAgregar={agregarAlCarrito}
+        />
 
         <section id="salsas" className="productos">
           <h2>Nuestras salsas</h2>
@@ -174,9 +127,7 @@ function App() {
                   Total: ${total.toLocaleString('es-AR')}
                 </h2>
 
-                <p>
-                  🎁 Salsas gratis: {salsasGratis}
-                </p>
+                <p>🎁 Salsas gratis: {salsasGratis}</p>
 
                 <p>
                   {12 - (cantidadTotal % 12) === 12
