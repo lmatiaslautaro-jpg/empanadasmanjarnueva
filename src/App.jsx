@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import ItemListContainer from './components/ItemListContainer'
+import ItemDetailContainer from './components/ItemDetailContainer'
 
 const salsas = [
   'Chimi',
@@ -65,6 +66,12 @@ function App() {
           greeting="¡Bienvenidos a Manjar Empanadas!"
           onAgregar={agregarAlCarrito}
         />
+
+        <section id="detalle" className="productos">
+          <h2>Detalle del producto</h2>
+
+          <ItemDetailContainer />
+        </section>
 
         <section id="salsas" className="productos">
           <h2>Nuestras salsas</h2>
