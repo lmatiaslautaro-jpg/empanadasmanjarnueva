@@ -1,17 +1,28 @@
-    function Item({ producto, onAgregar }) {
+import { Link } from 'react-router-dom'
+
+function Item({ producto, onAgregar }) {
   return (
     <article className="producto-card">
-      <div className="producto-imagen">
-        {producto.img}
-      </div>
+      <Link
+        to={`/item/${producto.id}`}
+        className="producto-link"
+      >
+        <div className="producto-imagen">
+          {producto.img}
+        </div>
 
-      <h3>{producto.name}</h3>
+        <span className="detalle-categoria">
+          {producto.category}
+        </span>
 
-      <p>{producto.description}</p>
+        <h3>{producto.name}</h3>
 
-      <strong className="precio">
-        ${producto.price.toLocaleString('es-AR')}
-      </strong>
+        <p>{producto.description}</p>
+
+        <strong className="precio">
+          ${producto.price.toLocaleString('es-AR')}
+        </strong>
+      </Link>
 
       <button onClick={() => onAgregar(producto.name)}>
         Agregar al pedido

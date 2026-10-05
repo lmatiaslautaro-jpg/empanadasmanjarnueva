@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { getProductById } from '../services/getProductById'
 import ItemDetail from './ItemDetail'
 
-function ItemDetailContainer() {
+function ItemDetailContainer({ productId = 1 }) {
   const [producto, setProducto] = useState(null)
 
   useEffect(() => {
     const cargarProducto = async () => {
       try {
-        const productoObtenido = await getProductById(1) // Cambia el ID según sea necesario
+        const productoObtenido = await getProductById(productId)
         setProducto(productoObtenido)
       } catch (error) {
         console.error(error)
@@ -16,7 +16,7 @@ function ItemDetailContainer() {
     }
 
     cargarProducto()
-  }, [])
+  }, [productId])
 
   if (!producto) {
     return <p>Cargando detalle del producto... 🥟</p>

@@ -1,8 +1,8 @@
-function CartWidget() {
+function CartWidget({ cantidad }) {
   return (
     <div className="cart-widget">
       <span>🛒</span>
-      <span className="cart-badge">3</span>
+      <span className="cart-badge">{cantidad}</span>
     </div>
   )
 }

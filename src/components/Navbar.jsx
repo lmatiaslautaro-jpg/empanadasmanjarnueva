@@ -1,21 +1,32 @@
+import { NavLink } from 'react-router-dom'
 import CartWidget from './CartWidget'
 
-function Navbar() {
+function Navbar({ cantidad }) {
   return (
     <header className="navbar">
-      <a href="#inicio" className="navbar-logo">
+      <NavLink to="/" className="navbar-logo">
         MANJAR EMPANADAS
-      </a>
+      </NavLink>
 
       <nav className="navbar-categorias">
-        <a href="#productos">Carne</a>
-        <a href="#productos">Pollo</a>
-        <a href="#productos">Jamón y queso</a>
-        <a href="#productos">Vegetarianas</a>
-        <a href="#salsas">Salsas</a>
+        <NavLink to="/category/Carnes">Carnes</NavLink>
+
+        <NavLink to="/category/Pollo">Pollo</NavLink>
+
+        <NavLink to="/category/Clásicas">Clásicas</NavLink>
+
+        <NavLink to="/category/Vegetarianas">
+          Vegetarianas
+        </NavLink>
+
+        <NavLink to="/category/Especiales">
+          Especiales
+        </NavLink>
       </nav>
 
-      <CartWidget />
+      <NavLink to="/cart" className="cart-link">
+        <CartWidget cantidad={cantidad} />
+      </NavLink>
     </header>
   )
 }
