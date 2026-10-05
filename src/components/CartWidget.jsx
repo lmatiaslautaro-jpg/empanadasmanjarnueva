@@ -1,8 +1,17 @@
-function CartWidget({ cantidad }) {
+import { useCart } from '../context/CartContext'
+
+function CartWidget() {
+  const { totalItems } = useCart()
+
   return (
     <div className="cart-widget">
       <span>🛒</span>
-      <span className="cart-badge">{cantidad}</span>
+
+      {totalItems > 0 && (
+        <span className="cart-badge">
+          {totalItems}
+        </span>
+      )}
     </div>
   )
 }

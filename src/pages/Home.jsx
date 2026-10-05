@@ -1,3 +1,4 @@
+import { useCart } from '../context/CartContext'
 import ItemListContainer from '../components/ItemListContainer'
 
 const salsas = [
@@ -8,16 +9,17 @@ const salsas = [
   'Criolla',
 ]
 
-const PRECIO = 3000
+function Home() {
+  const {
+    cart,
+    addItem,
+    removeItem,
+    totalItems,
+    total,
+  } = useCart()
 
-function Home({
-  carrito,
-  agregarAlCarrito,
-  quitarDelCarrito,
-  cantidadTotal,
-  total,
-  salsasGratis,
-}) {
+  const salsasGratis = Math.floor(totalItems / 12) * 3
+
   return (
     <>
       <section id="inicio" className="hero">
@@ -32,7 +34,6 @@ function Home({
 
       <ItemListContainer
         greeting="¡Bienvenidos a Manjar Empanadas!"
-        onAgregar={agregarAlCarrito}
       />
 
       <section id="salsas" className="productos">
@@ -62,33 +63,39 @@ function Home({
       <section id="carrito" className="productos">
         <h2>🛒 Mi pedido</h2>
 
-        {cantidadTotal === 0 ? (
+        {totalItems === 0 ? (
           <p>
             Tu carrito está vacío. ¡Elegí tus empanadas favoritas!
           </p>
         ) : (
           <>
             <div className="carrito-lista">
-              {Object.entries(carrito).map(([nombre, cantidad]) => (
-                <article className="carrito-item" key={nombre}>
-                  <h3>{nombre}</h3>
+              {cart.map((producto) => (
+                <article
+                  className="carrito-item"
+                  key={producto.id}
+                >
+                  <h3>{producto.name}</h3>
 
                   <p>
-                    {cantidad} x $3.000 = $
-                    {(cantidad * PRECIO).toLocaleString('es-AR')}
+                    {producto.quantity} x $
+                    {producto.price.toLocaleString('es-AR')} = $
+                    {(
+                      producto.quantity * producto.price
+                    ).toLocaleString('es-AR')}
                   </p>
 
                   <div className="carrito-controles">
                     <button
-                      onClick={() => quitarDelCarrito(nombre)}
+                      onClick={() => removeItem(producto.id)}
                     >
                       −
                     </button>
 
-                    <strong>{cantidad}</strong>
+                    <strong>{producto.quantity}</strong>
 
                     <button
-                      onClick={() => agregarAlCarrito(nombre)}
+                      onClick={() => addItem(producto, 1)}
                     >
                       +
                     </button>
@@ -98,7 +105,7 @@ function Home({
             </div>
 
             <div className="resumen-pedido">
-              <h3>Total de empanadas: {cantidadTotal}</h3>
+              <h3>Total de empanadas: {totalItems}</h3>
 
               <h2>
                 Total: ${total.toLocaleString('es-AR')}
@@ -107,10 +114,10 @@ function Home({
               <p>🎁 Salsas gratis: {salsasGratis}</p>
 
               <p>
-                {12 - (cantidadTotal % 12) === 12
+                {12 - (totalItems % 12) === 12
                   ? '¡Ya alcanzaste un múltiplo de 12!'
                   : `Te faltan ${
-                      12 - (cantidadTotal % 12)
+                      12 - (totalItems % 12)
                     } empanadas para el próximo regalo.`}
               </p>
             </div>

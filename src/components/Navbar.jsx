@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import CartWidget from './CartWidget'
 
-function Navbar({ cantidad }) {
+function Navbar() {
   return (
     <header className="navbar">
       <NavLink to="/" className="navbar-logo">
@@ -25,7 +25,7 @@ function Navbar({ cantidad }) {
       </nav>
 
       <NavLink to="/cart" className="cart-link">
-        <CartWidget cantidad={cantidad} />
+        <CartWidget />
       </NavLink>
     </header>
   )

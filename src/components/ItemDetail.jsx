@@ -1,8 +1,11 @@
+import { useCart } from '../context/CartContext'
 import ItemCount from './ItemCount'
 
 function ItemDetail({ producto }) {
+  const { addItem } = useCart()
+
   const agregarAlPedido = (cantidad) => {
-    console.log(`Agregaste ${cantidad} unidad(es) de ${producto.name}`)
+    addItem(producto, cantidad)
   }
 
   return (

@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
 
-function Item({ producto, onAgregar }) {
+function Item({ producto }) {
+  const { addItem } = useCart()
+
+  const agregarAlPedido = () => {
+    addItem(producto, 1)
+  }
+
   return (
     <article className="producto-card">
       <Link
@@ -24,7 +31,7 @@ function Item({ producto, onAgregar }) {
         </strong>
       </Link>
 
-      <button onClick={() => onAgregar(producto.name)}>
+      <button onClick={agregarAlPedido}>
         Agregar al pedido
       </button>
     </article>

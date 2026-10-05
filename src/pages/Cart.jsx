@@ -1,69 +1,89 @@
-function Cart({
-  carrito,
-  agregarAlCarrito,
-  quitarDelCarrito,
-  cantidadTotal,
-  total,
-  salsasGratis,
-}) {
-  return (
-    <section className="productos">
-      <h2>🛒 Mi pedido</h2>
+import { Link } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
 
-      {cantidadTotal === 0 ? (
+function Cart() {
+  const {
+    cart,
+    removeItem,
+    clear,
+    totalItems,
+    total,
+  } = useCart()
+
+  if (cart.length === 0) {
+    return (
+      <section className="productos">
+        <h2>🛒 Mi carrito</h2>
+
         <p>
           Tu carrito está vacío. ¡Elegí tus empanadas favoritas!
         </p>
-      ) : (
-        <>
-          <div className="carrito-lista">
-            {Object.entries(carrito).map(([nombre, cantidad]) => (
-              <article className="carrito-item" key={nombre}>
-                <h3>{nombre}</h3>
 
-                <p>
-                  {cantidad} x $3.000 = $
-                  {(cantidad * 3000).toLocaleString('es-AR')}
-                </p>
+        <Link to="/" className="boton">
+          Volver al catálogo
+        </Link>
+      </section>
+    )
+  }
 
-                <div className="carrito-controles">
-                  <button
-                    onClick={() => quitarDelCarrito(nombre)}
-                  >
-                    −
-                  </button>
+  return (
+    <section className="productos">
+      <h2>🛒 Mi carrito</h2>
 
-                  <strong>{cantidad}</strong>
+      <div className="carrito-lista">
+        {cart.map((producto) => {
+          const subtotal = producto.price * producto.quantity
 
-                  <button
-                    onClick={() => agregarAlCarrito(nombre)}
-                  >
-                    +
-                  </button>
-                </div>
-              </article>
-            ))}
-          </div>
+          return (
+            <article
+              className="carrito-item"
+              key={producto.id}
+            >
+              <h3>{producto.name}</h3>
 
-          <div className="resumen-pedido">
-            <h3>Total de empanadas: {cantidadTotal}</h3>
+              <p>
+                Precio unitario: $
+                {producto.price.toLocaleString('es-AR')}
+              </p>
 
-            <h2>
-              Total: ${total.toLocaleString('es-AR')}
-            </h2>
+              <p>
+                Cantidad: {producto.quantity}
+              </p>
 
-            <p>🎁 Salsas gratis: {salsasGratis}</p>
+              <p>
+                Subtotal: $
+                {subtotal.toLocaleString('es-AR')}
+              </p>
 
-            <p>
-              {12 - (cantidadTotal % 12) === 12
-                ? '¡Ya alcanzaste un múltiplo de 12!'
-                : `Te faltan ${
-                    12 - (cantidadTotal % 12)
-                  } empanadas para el próximo regalo.`}
-            </p>
-          </div>
-        </>
-      )}
+              <button
+                onClick={() => removeItem(producto.id)}
+              >
+                Eliminar
+              </button>
+            </article>
+          )
+        })}
+      </div>
+
+      <div className="resumen-pedido">
+        <h3>Total de productos: {totalItems}</h3>
+
+        <h2>
+          Total: ${total.toLocaleString('es-AR')}
+        </h2>
+
+        <button onClick={clear}>
+          Vaciar carrito
+        </button>
+
+        <button
+          onClick={() =>
+            alert('¡Gracias por tu compra! Próximamente podrás finalizar el pedido.')
+          }
+        >
+          Finalizar compra
+        </button>
+      </div>
     </section>
   )
 }
