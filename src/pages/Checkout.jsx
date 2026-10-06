@@ -1,5 +1,9 @@
 import { useState } from 'react'
 import {
+  Navigate,
+  useNavigate,
+} from 'react-router-dom'
+import {
   addDoc,
   collection,
   serverTimestamp,
@@ -11,6 +15,7 @@ import { useAuth } from '../context/AuthContext'
 function Checkout() {
   const { cart, total, clear } = useCart()
   const { user } = useAuth()
+  const navigate = useNavigate()
 
   const [formulario, setFormulario] = useState({
     name: '',
@@ -40,7 +45,7 @@ function Checkout() {
     setError('')
 
     if (cart.length === 0) {
-      setError('Tu carrito está vacío.')
+      navigate('/')
       return
     }
 
@@ -145,6 +150,10 @@ function Checkout() {
         </button>
       </section>
     )
+  }
+
+  if (cart.length === 0) {
+    return <Navigate to="/" replace />
   }
 
   return (
