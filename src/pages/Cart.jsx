@@ -32,7 +32,8 @@ function Cart() {
 
       <div className="carrito-lista">
         {cart.map((producto) => {
-          const subtotal = producto.price * producto.quantity
+          const subtotal =
+            producto.price * producto.quantity
 
           return (
             <article
@@ -76,13 +77,9 @@ function Cart() {
           Vaciar carrito
         </button>
 
-        <button
-          onClick={() =>
-            alert('¡Gracias por tu compra! Próximamente podrás finalizar el pedido.')
-          }
-        >
+        <Link to="/checkout" className="boton">
           Finalizar compra
-        </button>
+        </Link>
       </div>
     </section>
   )

@@ -4,7 +4,7 @@ import ItemDetailContainer from '../components/ItemDetailContainer'
 function ItemDetailPage() {
   const { id } = useParams()
 
-  return <ItemDetailContainer productId={Number(id)} />
+  return <ItemDetailContainer productId={id} />
 }
 
 export default ItemDetailPage

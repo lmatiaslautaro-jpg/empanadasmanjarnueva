@@ -1,25 +1,63 @@
 import { useEffect, useState } from 'react'
-import { getProductById } from '../services/getProductById'
+import {
+  doc,
+  getDoc,
+} from 'firebase/firestore'
+import { db } from '../firebase/config'
 import ItemDetail from './ItemDetail'
 
-function ItemDetailContainer({ productId = 1 }) {
+function ItemDetailContainer({ productId }) {
   const [producto, setProducto] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const cargarProducto = async () => {
+      setLoading(true)
+      setError('')
+
       try {
-        const productoObtenido = await getProductById(productId)
-        setProducto(productoObtenido)
+        const productoRef = doc(
+          db,
+          'products',
+          productId,
+        )
+
+        const productoSnap = await getDoc(productoRef)
+
+        if (!productoSnap.exists()) {
+          setError('No encontramos ese producto.')
+          setProducto(null)
+          return
+        }
+
+        setProducto({
+          id: productoSnap.id,
+          ...productoSnap.data(),
+        })
       } catch (error) {
-        console.error(error)
+        console.error(
+          'Error al cargar el producto desde Firestore:',
+          error,
+        )
+
+        setError(
+          'No se pudo cargar el detalle del producto.',
+        )
+      } finally {
+        setLoading(false)
       }
     }
 
     cargarProducto()
   }, [productId])
 
-  if (!producto) {
+  if (loading) {
     return <p>Cargando detalle del producto... 🥟</p>
+  }
+
+  if (error) {
+    return <p>{error}</p>
   }
 
   return <ItemDetail producto={producto} />

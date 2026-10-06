@@ -6,6 +6,10 @@ import Category from './pages/Category'
 import ItemDetailPage from './pages/ItemDetailPage'
 import NotFound from './pages/NotFound'
 import Cart from './pages/Cart'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import ProtectedRoute from './components/ProtectedRoute'
+import Checkout from './pages/Checkout'
 
 function App() {
   return (
@@ -14,10 +18,7 @@ function App() {
 
       <main>
         <Routes>
-          <Route
-            path="/"
-            element={<Home />}
-          />
+          <Route path="/" element={<Home />} />
 
           <Route
             path="/category/:id"
@@ -29,21 +30,32 @@ function App() {
             element={<ItemDetailPage />}
           />
 
+          <Route path="/cart" element={<Cart />} />
+
+          <Route path="/login" element={<Login />} />
+
           <Route
-            path="/cart"
-            element={<Cart />}
+            path="/register"
+            element={<Register />}
           />
 
           <Route
-            path="*"
-            element={<NotFound />}
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
           />
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
 
       <footer>
         <p>
-          © 2026 Manjar Empanadas - Todos los derechos reservados.
+          © 2026 Manjar Empanadas - Todos los derechos
+          reservados.
         </p>
       </footer>
     </>
